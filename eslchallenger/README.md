@@ -9,6 +9,6 @@ Development plan :
 
 Ready : 
 1.design
-2.
+
 
 Basic mechanic : Tournament start (generation teams) -> consecutive start of matches -> tournament result
