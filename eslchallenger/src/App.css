@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+.status {
+  display: flex;
+ justify-content: center;
+ align-self: center;
+}
+.team {
+    border : 2px springgreen solid; 
+    padding: 5px;
+}
+.section { 
+  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
