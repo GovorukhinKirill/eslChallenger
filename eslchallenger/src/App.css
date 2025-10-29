@@ -51,5 +51,15 @@
     gap: 20px;
 }
 .green {
-  color: green;
+  color: aquamarine;
+  background-color: green;
+}
+.red{
+  color: rgb(240, 221, 221);
+  background-color: red;
+}
+.tournamenttable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
