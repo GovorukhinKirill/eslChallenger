@@ -5,20 +5,25 @@ import "../App.css"
 
 
 function MatchManager() {
-    let winnersArray = []
+   
     console.log(teams) 
     const [match , setMatch] = useState([]);
     const [teamsArray, setTeamsArray] = useState(teams);
-    const [round, setRound] = useState(0);
+    const [round, setRound] = useState("waiting");
     let countresult = 0
+    let stage = "waiting"
     function simulateRandomMatch(TeamA , TeamB) {
         return Math.random() > 0.5 ?TeamA : TeamB
     }
     function startMatch() {
+         let winnersArray = []
         let countteam = 0
         countresult = countresult + 1
-        if(countteam ){
+        if(true ){
+            setRound("1/8")
             for( let i = 0 ; i < teams.length; i += 2 ) {
+                let winner = undefined
+                let loser = undefined
              countteam = countteam + 1
             const team1 = teams[i];
             const team2 = teams[i + 1];
@@ -29,6 +34,7 @@ function MatchManager() {
                 if (document.querySelector(`#${teams[i].name}`)){
                     console.log(document.querySelector(`.${teams[i].name}`))
                     document.querySelector(`.${teams[i].name}`).classList.add("green")
+                    winner = teams[i].name
                     winnersArray.push(teams[i])
                     console.log(winnersArray)
                 }
@@ -36,6 +42,7 @@ function MatchManager() {
                 if (document.querySelector(`#${teams[i + 1].name}`)){
                     console.log(document.querySelector(`.${teams[i + 1].name}`))
                     document.querySelector(`.${teams[i + 1].name}`).classList.add("red")
+                    loser = teams[i + 1].name
                 }
                  
             }
@@ -45,6 +52,7 @@ function MatchManager() {
                  if (document.querySelector(`#${teams[i].name}`)){
                     console.log(document.querySelector(`.${teams[i].name}`))
                     document.querySelector(`.${teams[i].name}`).classList.add("red")
+                    loser = teams[i].name
                 }
 
                 if (document.querySelector(`#${teams[i + 1].name}`)){
@@ -52,6 +60,7 @@ function MatchManager() {
                     document.querySelector(`.${teams[i + 1].name}`).classList.add("green")
                     winnersArray.push(teams[i+1])
                     console.log(winnersArray)
+                    winner = teams[i + 1].name
                 }
             }
             else if (teams[i].strenght == teams[i + 1].strenght)
@@ -63,17 +72,21 @@ function MatchManager() {
 
             }
             console.log(countteam)
-
+            console.log(winner,loser)
             if(countteam<5){
                 document.querySelector(".tournamenttable .left").innerHTML += `
-                <div>${teams[i].name}</div>
-                <div>${teams[i + 1].name}</div>
+                <div class = "teams_box">
+                    <div class='${winner == teams[i].name ? "green" : "red"}'>${teams[i].name}</div>
+                    <div class='${winner == teams[i + 1].name ? "green" : "red"}'>${teams[i + 1].name}</div>
+                </div>
             `
             }
             else{
                 document.querySelector(".tournamenttable .right" ).innerHTML += `
-                <div>${teams[i].name}</div>
-                <div>${teams[i + 1].name}</div>
+                <div class = "teams_box">
+                    <div class='${winner == teams[i].name ? "green" : "red"}'>${teams[i].name}</div>
+                    <div class='${winner == teams[i + 1].name ? "green" : "red"}'>${teams[i + 1].name}</div>
+                </div>   
             `
             }
         
@@ -178,7 +191,13 @@ function MatchManager() {
             <footer>
                 <div className = "start">
                     <button onClick={startMatch}> Start </button>
+
                 </div>
+               <div class = "tournament_stage">
+                    <span>
+                        Live Stage - {round}
+                    </span>
+               </div> 
             </footer>
         </>
     )

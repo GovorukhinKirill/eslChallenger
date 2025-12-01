@@ -2,7 +2,8 @@ const teams = [
     {
         name: "team1",
         description: "",
-        strenght :5 , 
+        strenght :0 , 
+        
     },
 
      {
