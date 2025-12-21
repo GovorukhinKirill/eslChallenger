@@ -19,7 +19,24 @@ function MatchManager() {
     FINAL: "финал",
     COMPLETE: "завершен"
   };
-  
+  const Tooltip = ({children,content,position="top"}) => {
+    const [status, setStatus] = useState(false)
+    return(
+        <div>
+            <div
+            
+            onMouseEnter={()=> setStatus(true)}
+            onMouseLeave={()=> setStatus(false)}
+            >
+          {children }
+            </div>
+
+            {status && (
+                <div>{content}</div>
+            )}
+        </div>
+    )
+  }
   // Функция для симуляции матча
   const simulateMatch = (teamA, teamB) => {
     const randomFactor = Math.random() * 0.3 - 0.15; // Случайность от -15% до +15%
@@ -165,14 +182,14 @@ function MatchManager() {
         <div className="teams-container">
           <div className={`team ${match.winner?.id === match.team1.id ? 'winner' : ''} ${match.loser?.id === match.team1.id ? 'loser' : ''}`}>
             <span className="team-name">{match.team1.name}</span>
-            <span className="team-strength">Сила: {match.team1.strength}</span>
+            <span className="team-strength">Сила: {match.team1.strenght}</span>
           </div>
           
           <div className="vs-divider">VS</div>
           
           <div className={`team ${match.winner?.id === match.team2.id ? 'winner' : ''} ${match.loser?.id === match.team2.id ? 'loser' : ''}`}>
             <span className="team-name">{match.team2.name}</span>
-            <span className="team-strength">Сила: {match.team2.strength}</span>
+            <span className="team-strength">Сила: {match.team2.strenght}</span>
           </div>
         </div>
         
@@ -193,7 +210,7 @@ function MatchManager() {
     <div className="match-manager">
       {/* Заголовок */}
       <header className="tournament-header">
-        <h1>Футбольный турнир</h1>
+        <h1>Турнир по Counter Strike 2</h1>
         <div className="tournament-status">
           <span className="status-label">Статус:</span>
           <span className={`status-value ${tournamentStage === TOURNAMENT_STAGES.COMPLETE ? 'complete' : ''}`}>
@@ -209,11 +226,20 @@ function MatchManager() {
           <div className="teams-grid">
             {teams.map((team) => (
               <div key={team.id} className="team-card">
-                <h3 className="team-title">{team.name}</h3>
+              <Tooltip content = {
+                <div className = "tooltip-content">
                 <p className="team-description">{team.description}</p>
+                <p className="team-roster">{team["Team roster"]}</p>
+                <p className="team-country">{team.country}</p>
+                </div>
+
+                }
+                position="top"></Tooltip>
+                <h3 className="team-title">{team.name}</h3>
+                
                 <div className="team-stats">
                   <span className="stat-label">Сила:</span>
-                  <span className="stat-value">{team.strength}</span>
+                  <span className="stat-value">{team.strenght}</span>
                 </div>
               </div>
             ))}
@@ -236,7 +262,7 @@ function MatchManager() {
                 <h2>{tournamentWinner.name}</h2>
                 <p>{tournamentWinner.description}</p>
                 <div className="champion-stats">
-                  Сила команды: {tournamentWinner.strength}
+                  Сила команды: {tournamentWinner.strenght}
                 </div>
               </div>
             </div>
