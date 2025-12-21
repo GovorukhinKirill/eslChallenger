@@ -10,6 +10,10 @@ function MatchManager() {
   const [isTournamentComplete, setIsTournamentComplete] = useState(false);
   const [tournamentStage, setTournamentStage] = useState("waiting");
   
+
+  function log(){
+    console.log("Hello")
+  }
   // Константы для этапов турнира
   const TOURNAMENT_STAGES = {
     WAITING: "waiting",
@@ -21,13 +25,15 @@ function MatchManager() {
   };
   const Tooltip = ({children,content,position="top"}) => {
     const [status, setStatus] = useState(false)
+    console.log("!")
     return(
-        <div>
-            <div
+        <div className="tooltip-wrapper">
+            <div className="tooltip-trigger"
             
             onMouseEnter={()=> setStatus(true)}
             onMouseLeave={()=> setStatus(false)}
             >
+            Подробнее
           {children }
             </div>
 
@@ -226,6 +232,8 @@ function MatchManager() {
           <div className="teams-grid">
             {teams.map((team) => (
               <div key={team.id} className="team-card">
+              <h3 className="team-title">123</h3>
+
               <Tooltip content = {
                 <div className = "tooltip-content">
                 <p className="team-description">{team.description}</p>
